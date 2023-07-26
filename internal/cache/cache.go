@@ -4,7 +4,6 @@ import (
     rediscache "github.com/go-redis/cache"
     "github.com/go-redis/redis"
     "github.com/prometheus/client_golang/prometheus"
-    msgpack2 "github.com/vmihailenco/msgpack"
     "gopkg.in/vmihailenco/msgpack.v2"
 )
 
@@ -53,7 +52,7 @@ func New(redis *redis.Client) *Redis {
             return msgpack.Marshal(v)
         },
         Unmarshal: func(b []byte, v interface{}) error {
-            return msgpack2.Unmarshal(b, v)
+            return msgpack.Unmarshal(b, v)
         },
     }
 
