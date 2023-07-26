@@ -14,6 +14,19 @@ type RoundRobiner interface {
     Pick() (*Token, error)
 }
 
+// New round robin implementation with the given list of tokens.
+func New(tokens []string) RoundRobiner {
+    log.Debugf("creating round robin with %d tokens", len(tokens))
+    if len(tokens) == 0 {
+        return &noTokensRoundRobin{}
+    }
+    result := make([]*Token, 0, len(tokens))
+    for _, token := range tokens {
+        result = append(result, NewToken(token))
+    }
+    return &realRoundRobin{tokens: result}
+}
+
 type noTokensRoundRobin struct{}
 
 func (rr *noTokensRoundRobin) Pick() (*Token, error) {
