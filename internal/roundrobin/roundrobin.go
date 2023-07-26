@@ -2,7 +2,9 @@
 package roundrobin
 
 import (
+    "fmt"
     "sync"
+    "sync/atomic"
 
     "github.com/apex/log"
 )
@@ -16,6 +18,28 @@ type noTokensRoundRobin struct{}
 
 func (rr *noTokensRoundRobin) Pick() (*Token, error) {
     return nil, nil
+}
+
+type realRoundRobin struct {
+    tokens []*Token
+    next   int64
+}
+
+func (rr *realRoundRobin) Pick() (*Token, error) {
+    return rr.doPick(0)
+}
+
+func (rr *realRoundRobin) doPick(try int) (*Token, error) {
+    if try > len(rr.tokens) {
+        return nil, fmt.Errorf("no valid tokens left")
+    }
+    idx := atomic.LoadInt64(&rr.next)
+    atomic.StoreInt64(&rr.next, (idx+1)%int64(len(rr.tokens)))
+    if pick := rr.tokens[idx]; pick.OK() {
+        log.Debugf("picked %s", pick.Key())
+        return pick, nil
+    }
+    return rr.doPick(try + 1)
 }
 
 // Token is a github token
