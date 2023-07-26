@@ -7,6 +7,17 @@ import (
     "github.com/apex/log"
 )
 
+// RoundRobiner can pick a token from a list of tokens
+type RoundRobiner interface {
+    Pick() (*Token, error)
+}
+
+type noTokensRoundRobin struct{}
+
+func (rr *noTokensRoundRobin) Pick() (*Token, error) {
+    return nil, nil
+}
+
 // Token is a github token
 type Token struct {
     token string
