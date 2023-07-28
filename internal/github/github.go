@@ -24,19 +24,19 @@ var effectiveEtags = prometheus.NewCounter(prometheus.CounterOpts{
     Name:      "effective_etag_users_total",
 })
 
-var tokensCount = prometheus.NewCounter(prometheus.CounterOpts{
+var tokensCount = prometheus.NewGauge(prometheus.GaugeOpts{
     Namespace: "star-chart",
     Subsystem: "github",
     Name:      "available_tokens",
 })
 
-var invalidatedTokens = prometheus.NewCounter(prometheus.CounterOpts{
+var invalidatedTokens = prometheus.NewGauge(prometheus.GaugeOpts{
     Namespace: "star-chart",
     Subsystem: "github",
     Name:      "invalidated_tokens_total",
 })
 
-var rateLimiters = prometheus.NewCounter(prometheus.CounterOpts{
+var rateLimiters = prometheus.NewGauge(prometheus.GaugeOpts{
     Namespace: "star-chart",
     Subsystem: "github",
     Name:      "rate_limit_remaining",
