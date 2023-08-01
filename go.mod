@@ -3,6 +3,7 @@ module github.com/hd2yao/star-chart
 go 1.20
 
 require (
+	github.com/apex/httplog v1.0.0
 	github.com/apex/log v1.9.0
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/caarlos0/httperr v1.4.0
