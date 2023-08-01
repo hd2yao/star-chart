@@ -5,10 +5,12 @@ go 1.20
 require (
 	github.com/apex/log v1.9.0
 	github.com/caarlos0/env/v6 v6.10.1
+	github.com/caarlos0/httperr v1.4.0
 	github.com/go-redis/cache v6.4.0+incompatible
 	github.com/go-redis/redis v6.15.9+incompatible
 	github.com/matryer/is v1.4.1
 	github.com/prometheus/client_golang v1.16.0
+	golang.org/x/sync v0.2.0
 	gopkg.in/vmihailenco/msgpack.v2 v2.9.2
 )
 
